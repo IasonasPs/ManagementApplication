@@ -2,6 +2,8 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.InteropServices;
+using System.Runtime.Serialization;
 
 namespace ManagementApplication.Models
 {
@@ -9,7 +11,6 @@ namespace ManagementApplication.Models
     {
         public Candidate()
         {
-                this.Degrees = new List<Degree>();
         }
 
         [Key]
@@ -29,16 +30,15 @@ namespace ManagementApplication.Models
         [MaxLength(10)]
         public string Mobile { get; set; }
 
-        public virtual ICollection<Degree> Degrees { get; set; }
-
-
         [DefaultValue(ApplicationStatus.Initial)]
         public ApplicationStatus ApplicationStatus { get; set; }
 
         public string Comments { get; set; }
 
-
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public DateTime CreationTime { get; set; }
+
+        public ICollection<CandidateDegree> Degrees { get; set; } = new List<CandidateDegree>();
+
     }
 }

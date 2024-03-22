@@ -5,14 +5,13 @@
 }
 
 <h1>Edit</h1>
-
 <h4>Candidate</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="CandidateId" />
+<form asp-action="Edit">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="CandidateId" />
+    <div class="row">
+        <div class="col">
             <div class="form-group">
                 <label asp-for="LastName" class="control-label"></label>
                 <input asp-for="LastName" class="form-control" />
@@ -35,9 +34,10 @@
             </div>
             <div class="form-group">
                 <label asp-for="ApplicationStatus" class="control-label"></label>
-                @Html.DropDownList("ApplicationStatus", ViewData["ApplicationStatus"] as IEnumerable<SelectListItem>, "Select a Role", new { @value = ViewData["SelectedEnumValue"] });
+                @Html.DropDownList("ApplicationStatus", ViewData["ApplicationStatus"] as IEnumerable<SelectListItem>, ViewData["CandidateStatus"]);
                 <span asp-validation-for="ApplicationStatus" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Comments" class="control-label"></label>
                 <input asp-for="Comments" class="form-control" />
@@ -49,16 +49,46 @@
                 <span asp-validation-for="CreationTime" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <hr />
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
-        </form>
+        </div>
+        <div class="col">
+            <h4>Acquired Degrees</h4>
+            <ul>
+                @{
+                    List<Degree> list = ViewData["AqcuiredCandidatesDegreeList"] as List<Degree>;
+                    if (list.Count == 0)
+                    {
+                        <li>This candidate has no degrees</li>
+                    }
+                    else
+                    {
+                        foreach (var item in list)
+                        {
+                            <li>@item.Name</li>
+                        }
+                    }
+                }
+            </ul>
+            <hr />
+            <div class="form-group">
+                <label asp-for="Degrees" class="control-label"><h4>Degrees list :</h4></label>
+                <p>Please select old and new degrees for the candidate</p>
+                @Html.ListBox("SelectedDegrees", ViewData["degreesViewList"] as IEnumerable<SelectListItem>, new { @class = "form-control", multiple = "multiple" })
+                <span asp-validation-for="Degrees" class="text-danger"></span>
+            </div>
+            <hr />
+        </div>
     </div>
-</div>
+</form>
 
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

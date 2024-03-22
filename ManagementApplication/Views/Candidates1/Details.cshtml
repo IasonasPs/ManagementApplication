@@ -1,0 +1,94 @@
+﻿@model ManagementApplication.Models.Candidate
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<h4>Candidate</h4>
+<hr />
+<div class="row">
+    <div class="col">
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.CandidateId)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CandidateId)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.LastName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.LastName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.FirstName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.FirstName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Mobile)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Mobile)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ApplicationStatus)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ApplicationStatus)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Comments)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Comments)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.CreationTime)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CreationTime)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Degrees)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Degrees.Count)
+            </dd>
+        </dl>
+    </div>
+    <div class="col">
+        <h5>Degrees</h5>
+        <hr />
+        <ul>
+            @{
+                List<Degree>? list = ViewData["CandidatesDegreeList"] as List<Degree> ?? new List<Degree>();
+                if (list.Count == 0)
+                {
+                    <li>This candidate has no degrees</li>
+                }
+                else
+                {
+                    foreach (var item in list)
+                    {
+                        <li>@item.Name</li>
+                    }
+                }
+            }
+        </ul>
+    </div>
+</div>
+<hr />
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

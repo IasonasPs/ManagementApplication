@@ -46,30 +46,30 @@ namespace ManagementApplication.Migrations
                 name: "CandidateDegree",
                 columns: table => new
                 {
-                    CandidatesCandidateId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    DegreesId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    CandidateId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    DegreeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CandidateDegree", x => new { x.CandidatesCandidateId, x.DegreesId });
+                    table.PrimaryKey("PK_CandidateDegree", x => new { x.CandidateId, x.DegreeId });
                     table.ForeignKey(
-                        name: "FK_CandidateDegree_Candidate_CandidatesCandidateId",
-                        column: x => x.CandidatesCandidateId,
+                        name: "FK_CandidateDegree_Candidate_CandidateId",
+                        column: x => x.CandidateId,
                         principalTable: "Candidate",
                         principalColumn: "CandidateId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CandidateDegree_Degree_DegreesId",
-                        column: x => x.DegreesId,
+                        name: "FK_CandidateDegree_Degree_DegreeId",
+                        column: x => x.DegreeId,
                         principalTable: "Degree",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_CandidateDegree_DegreesId",
+                name: "IX_CandidateDegree_DegreeId",
                 table: "CandidateDegree",
-                column: "DegreesId");
+                column: "DegreeId");
         }
 
         /// <inheritdoc />

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ManagementApplication.Migrations
 {
     [DbContext(typeof(ManagementApplicationContext))]
-    [Migration("20240318221546_Initial")]
+    [Migration("20240321222043_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -24,21 +24,6 @@ namespace ManagementApplication.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("CandidateDegree", b =>
-                {
-                    b.Property<Guid>("CandidatesCandidateId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("DegreesId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("CandidatesCandidateId", "DegreesId");
-
-                    b.HasIndex("DegreesId");
-
-                    b.ToTable("CandidateDegree");
-                });
 
             modelBuilder.Entity("ManagementApplication.Models.Candidate", b =>
                 {
@@ -79,6 +64,21 @@ namespace ManagementApplication.Migrations
                     b.ToTable("Candidate");
                 });
 
+            modelBuilder.Entity("ManagementApplication.Models.CandidateDegree", b =>
+                {
+                    b.Property<Guid>("CandidateId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("DegreeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("CandidateId", "DegreeId");
+
+                    b.HasIndex("DegreeId");
+
+                    b.ToTable("CandidateDegree");
+                });
+
             modelBuilder.Entity("ManagementApplication.Models.Degree", b =>
                 {
                     b.Property<Guid>("Id")
@@ -99,19 +99,33 @@ namespace ManagementApplication.Migrations
                     b.ToTable("Degree");
                 });
 
-            modelBuilder.Entity("CandidateDegree", b =>
+            modelBuilder.Entity("ManagementApplication.Models.CandidateDegree", b =>
                 {
-                    b.HasOne("ManagementApplication.Models.Candidate", null)
-                        .WithMany()
-                        .HasForeignKey("CandidatesCandidateId")
+                    b.HasOne("ManagementApplication.Models.Candidate", "Candidate")
+                        .WithMany("Degrees")
+                        .HasForeignKey("CandidateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ManagementApplication.Models.Degree", null)
-                        .WithMany()
-                        .HasForeignKey("DegreesId")
+                    b.HasOne("ManagementApplication.Models.Degree", "Degree")
+                        .WithMany("Candidates")
+                        .HasForeignKey("DegreeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Candidate");
+
+                    b.Navigation("Degree");
+                });
+
+            modelBuilder.Entity("ManagementApplication.Models.Candidate", b =>
+                {
+                    b.Navigation("Degrees");
+                });
+
+            modelBuilder.Entity("ManagementApplication.Models.Degree", b =>
+                {
+                    b.Navigation("Candidates");
                 });
 #pragma warning restore 612, 618
         }

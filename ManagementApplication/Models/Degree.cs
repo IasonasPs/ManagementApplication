@@ -9,7 +9,6 @@ namespace ManagementApplication.Models
     {
         public Degree()
         {
-            this.Candidates = new List<Candidate>();
         }
 
         [Key]
@@ -24,6 +23,7 @@ namespace ManagementApplication.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public DateTime CreationTime { get; set; }
 
-        public ICollection<Candidate> Candidates { get; set; }
+        public ICollection<CandidateDegree> Candidates { get; set; } = new List<CandidateDegree>();
+
     }
 }
