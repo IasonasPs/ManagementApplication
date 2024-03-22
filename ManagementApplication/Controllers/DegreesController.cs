@@ -10,7 +10,7 @@ using ManagementApplication.Models;
 
 namespace ManagementApplication.Controllers
 {
-    public class DegreesController : Controller
+    public class DegreesController:Controller
     {
         private readonly ManagementApplicationContext _context;
 
@@ -155,5 +155,24 @@ namespace ManagementApplication.Controllers
         {
             return _context.Degree.Any(e => e.Id == id);
         }
+
+        public ActionResult DeleteNonAcquired()
+        {
+
+            var candidateDegrees =  _context.CandidateDegree.ToList();
+
+            foreach (Degree degree in _context.Degree.ToList())
+            {
+                bool control = candidateDegrees.Where(cd => cd.DegreeId == degree.Id).Any();
+                if (!control)
+                {
+                    _context.Degree.Remove(degree);
+                }
+            }
+            _context.SaveChanges();
+
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 }
