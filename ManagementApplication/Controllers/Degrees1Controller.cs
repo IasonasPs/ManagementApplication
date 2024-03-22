@@ -10,22 +10,22 @@ using ManagementApplication.Models;
 
 namespace ManagementApplication.Controllers
 {
-    public class Degrees1Controller : Controller
+    public class DegreesController : Controller
     {
         private readonly ManagementApplicationContext _context;
 
-        public Degrees1Controller(ManagementApplicationContext context)
+        public DegreesController(ManagementApplicationContext context)
         {
             _context = context;
         }
 
-        // GET: Degrees1
+        // GET: Degrees
         public async Task<IActionResult> Index()
         {
             return View(await _context.Degree.ToListAsync());
         }
 
-        // GET: Degrees1/Details/5
+        // GET: Degrees/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -43,13 +43,13 @@ namespace ManagementApplication.Controllers
             return View(degree);
         }
 
-        // GET: Degrees1/Create
+        // GET: Degrees/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Degrees1/Create
+        // POST: Degrees/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -67,7 +67,7 @@ namespace ManagementApplication.Controllers
             return View(degree);
         }
 
-        // GET: Degrees1/Edit/5
+        // GET: Degrees/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -83,7 +83,7 @@ namespace ManagementApplication.Controllers
             return View(degree);
         }
 
-        // POST: Degrees1/Edit/5
+        // POST: Degrees/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -118,7 +118,7 @@ namespace ManagementApplication.Controllers
             return View(degree);
         }
 
-        // GET: Degrees1/Delete/5
+        // GET: Degrees/Delete/5
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -136,7 +136,7 @@ namespace ManagementApplication.Controllers
             return View(degree);
         }
 
-        // POST: Degrees1/Delete/5
+        // POST: Degrees/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
